@@ -1,0 +1,7 @@
+{
+  "name": "most-likely-ad",
+  "version": "0.1.0",
+  "description": "Shows the most likely ad in your category (layouts, colors, type the category repeats) and writes a counter-brief so yours doesn't look like it.",
+  "author": { "name": "Carlos Murguía", "url": "https://www.carlosmurguia.com" },
+  "skills": "./skills/"
+}

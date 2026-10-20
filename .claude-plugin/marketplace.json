@@ -1,0 +1,11 @@
+{
+  "name": "most-likely-ad",
+  "owner": { "name": "Carlos Murguía" },
+  "plugins": [
+    {
+      "name": "most-likely-ad",
+      "source": "./",
+      "description": "Shows the most likely ad in your category and writes a counter-brief so yours doesn't look like it."
+    }
+  ]
+}
