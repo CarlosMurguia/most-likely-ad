@@ -1,8 +1,8 @@
+![Every category swings back to the same ad. See your category's most likely ad before you make yours. Free Claude skill.](examples/banner-1280x640.jpg)
+
 # The most likely ad
 
 A Claude skill that shows you what the ads in your category look like before you make yours, checks how many of those conventions your own ad repeats, and writes a counter-brief so yours doesn't look like them.
-
-![The most likely ad in coffee shops: a sample card](examples/coffee-shops-card.png)
 
 Every category has an ad it keeps making: the same picture treatment, the headline in the same place, the same palette, the same typeface. In one study of 246 ads across ten industries, 108 landed in the same two layouts, and in B2B SaaS 17 of 26 ads from 11 competing companies were built the same way. Nobody copied anybody. An ad built that predictably tells the reader what it is before they look inside it, so it often never gets read.
 
@@ -24,6 +24,8 @@ It's an open project. The method is written down, the scripts are plain Python, 
 4. **Renders a card**: the category's most likely ad as a sketch, its colors and its strongest count, as an image you can share.
 5. **Checks your ad** (optional): "Your ad repeats 6 of the category's 7 conventions", with the ones it already breaks.
 6. **Writes a counter-brief**: three directions, each breaking one or two conventions on purpose while keeping the ad recognizable as the category.
+
+![The most likely ad in coffee shops: a sample card](examples/coffee-shops-card.png)
 
 It measures **sameness, not effectiveness**. Different is not automatically better. It is less predictable.
 
@@ -89,6 +91,9 @@ This gets better the more categories it has seen and the more people check its r
 - **Tell us when different worked, or didn't.** This skill can't measure performance. If you ran a counter-brief direction against a conventional version, share what happened in an issue, even if the conventional one won. That's the evidence nobody has.
 - **Improve the tools.** Video and carousels, TikTok and Google Display, better color naming, a better card. Issues and pull requests are welcome.
 - **Star the repo** if you found it useful. It helps other people find it.
+
+## Image credit
+Banner: Jean-Honoré Fragonard, *The Swing* (1767), The Wallace Collection, London. Public domain.
 
 ## License
 MIT. Use it, change it, ship it. A link back is appreciated.
