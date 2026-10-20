@@ -1,6 +1,6 @@
 ---
 name: most-likely-ad
-description: Shows what the "most likely ad" looks like in a category before you make yours, then writes a counter-brief to make something that doesn't look like it. Use when someone is about to design or brief an ad (social, display, LinkedIn, Instagram) and wants to know what competitors' ads look like, which layouts, colors and typography the category repeats, or how to stand out from what's already running. Triggers on "what do ads in my category look like", "competitor ads", "make my ad different", "stand out from competitors", "ad library research", "category conventions", "counter-brief", "most likely ad".
+description: Shows what the "most likely ad" looks like in a category before you make yours, renders it as a shareable card, checks how many of the category's conventions your own ad repeats, and writes a counter-brief to make something that doesn't look like it. Use when someone is about to design or brief an ad (social, display, LinkedIn, Instagram) and wants to know what competitors' ads look like, which layouts, colors and typography the category repeats, or how to stand out from what's already running. Triggers on "what do ads in my category look like", "check my ad", "is my ad too generic", "does my ad look like everyone else's", "competitor ads", "make my ad different", "stand out from competitors", "ad library research", "category conventions", "counter-brief", "most likely ad".
 ---
 
 # The most likely ad
@@ -43,11 +43,26 @@ Merge `palettes.csv` into `ads.csv` by file name (column `colors`).
 
 ### 3. Tally
 ```bash
-python3 scripts/tally.py ads.csv --out tally.md
+python3 scripts/tally.py ads.csv --out tally.md --json tally.json \
+  --category "Coffee shops" --platform "Instagram" --date 2026-10-13
 ```
 It reports: the most repeated structures and how far that is from chance, the modal value of every attribute, dominant color families, the structures and color families **nobody in the sample uses**, and a one-line description of the category's most likely ad.
 
-### 4. Write the report
+### 4. Check my ad (if the user shared their own ad)
+Code it with exactly the same rules into `mine.csv` (one row, same columns; run `palette.py` on it for colors), then:
+```bash
+python3 scripts/compare.py ads.csv mine.csv --out mine.md --json mine.json
+```
+It reports how many of the category's conventions the ad repeats (a convention = a value shared by at least 40% of the sample) and which ones it already breaks. Lead with that sentence: "Your ad repeats 6 of the category's 7 conventions."
+
+### 5. Render the card
+```bash
+python3 scripts/card.py --tally tally.json --out card.png
+python3 scripts/card.py --tally tally.json --mine mine.json --out check.png   # Check my ad
+```
+The card is a 1080×1350 image made to be shared: the category's dominant structure drawn as a sketch, the strongest count, the category's colors, and where nobody is. It never includes other brands' creative. Show the card to the user first, then the report.
+
+### 6. Write the report
 Use `templates/report.md`. Keep it short:
 1. **The most likely ad**, in one sentence and as a structure sketch (grey box = picture, black bar = words).
 2. **The numbers**: top 3 structures with counts out of N, chance comparison, palette and type conventions.

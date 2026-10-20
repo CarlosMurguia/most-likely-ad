@@ -33,8 +33,10 @@ def family(rgb):
     if s < 0.18:
         return "gray"
     hue = h * 360
-    if l < 0.42 and hue < 50 and s < 0.85:
+    if (hue < 50 or hue >= 345) and (l < 0.3 or (l < 0.42 and s < 0.85)):
         return "brown"
+    if l > 0.72 and s < 0.6 and 20 <= hue < 65:
+        return "beige"
     if hue < 15 or hue >= 345:
         return "red"
     if hue < 45:

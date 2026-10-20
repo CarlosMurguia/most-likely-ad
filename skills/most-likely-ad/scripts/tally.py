@@ -13,13 +13,14 @@ ads.csv columns (see references/structure-taxonomy.md):
 import argparse
 import colorsys
 import csv
+import json
 import random
 from collections import Counter
 
 PICTURE = ["full-bleed", "framed", "none"]
 WORDS = ["top centered", "top side", "middle centered", "middle side",
          "bottom centered", "bottom side", "no words"]
-FAMILIES = ["red", "orange", "yellow", "brown", "green", "teal", "blue", "purple", "pink",
+FAMILIES = ["red", "orange", "yellow", "brown", "beige", "green", "teal", "blue", "purple", "pink",
             "black", "white", "gray"]
 ATTRS = ["aspect", "image_kind", "product", "human", "background", "type_style",
          "type_case", "type_levels", "badge"]
@@ -37,8 +38,10 @@ def family(hexcode):
     if s < 0.18:
         return "gray"
     hue = hh * 360
-    if l < 0.42 and hue < 50 and s < 0.85:
+    if (hue < 50 or hue >= 345) and (l < 0.3 or (l < 0.42 and s < 0.85)):
         return "brown"
+    if l > 0.72 and s < 0.6 and 20 <= hue < 65:
+        return "beige"
     for limit, name in [(15, "red"), (45, "orange"), (70, "yellow"), (165, "green"),
                         (200, "teal"), (255, "blue"), (290, "purple"), (345, "pink")]:
         if hue < limit:
@@ -76,6 +79,10 @@ def main():
     ap.add_argument("csv")
     ap.add_argument("--out", default="tally.md")
     ap.add_argument("--seed", type=int, default=1)
+    ap.add_argument("--json", help="also write the numbers as JSON (input for card.py)")
+    ap.add_argument("--category", default="", help="category label for the JSON/card")
+    ap.add_argument("--platform", default="", help="e.g. Instagram, LinkedIn")
+    ap.add_argument("--date", default="", help="date the ads were seen, YYYY-MM-DD")
     a = ap.parse_args()
     rng = random.Random(a.seed)
 
@@ -141,7 +148,7 @@ def main():
         have_color += 1
         fams = {family(c) for c in cols}
         fam_ads.update(fams)
-        chromatic = [family(c) for c in cols if family(c) not in ("black", "white", "gray")]
+        chromatic = [family(c) for c in cols if family(c) not in ("black", "white", "gray", "beige")]
         if chromatic:
             lead[chromatic[0]] += 1
     if have_color:
@@ -197,6 +204,33 @@ def main():
     w("\n---\nThis measures how alike the ads are built, not whether they work.")
 
     open(a.out, "w").write("\n".join(out) + "\n")
+
+    if a.json:
+        # representative hex per family: the most frequent color of that family across ads
+        fam_hex = {}
+        for r in rows:
+            for c in (r.get("colors") or "").split(";"):
+                c = c.strip()
+                if c:
+                    hx = c.lstrip("#")
+                    _, _l, _s = colorsys.rgb_to_hls(*(int(hx[i:i + 2], 16) / 255 for i in (0, 2, 4)))
+                    fam_hex.setdefault(family(c), Counter())[c.lower()] += 1 + 3 * _s * (1 - abs(_l - 0.5) * 2)  # favor vivid mid-tones
+        data = {
+            "category": a.category, "platform": a.platform, "date": a.date,
+            "n": n, "advertisers": advertisers, "possible_structures": cells,
+            "structures": [{"picture": s_.split(" · ")[0], "words": s_.split(" · ")[1], "count": c}
+                           for s_, c in sc.most_common()],
+            "chance_fullest": round(e1, 1), "chance_two_fullest": round(e2, 1),
+            "words": [{"position": k, "count": v} for k, v in wc.most_common()],
+            "conventions": {k: {"value": v[0], "count": v[1], "of": v[2]} for k, v in modal.items()},
+            "color_families": [{"family": k, "ads": v, "hex": fam_hex.get(k, Counter()).most_common(1)[0][0]
+                                if fam_hex.get(k) else None} for k, v in fam_ads.most_common()],
+            "lead_color": [{"family": k, "ads": v} for k, v in lead.most_common()],
+            "unused_structures": unused, "unused_color_families": unused_fam,
+            "one_line": out[out.index("\n## In one line\n") + 1] if "\n## In one line\n" in out else "",
+        }
+        json.dump(data, open(a.json, "w"), indent=2)
+        print(f"numbers → {a.json}")
     print(f"{n} ads → {a.out}")
 
 
