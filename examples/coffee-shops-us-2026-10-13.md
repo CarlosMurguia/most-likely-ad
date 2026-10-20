@@ -5,7 +5,7 @@ Meta (Instagram/Facebook) · United States · 25 static ads from 13 advertisers 
 Advertisers: 7 Brew, Biggby, Black Rifle, Black Rock, Blue Bottle, Caribou, Dutch Bros, Intelligentsia, La Colombe, Peet's, Philz, Scooter's, Stumptown (max 2 ads each, in the order the library served them).
 
 ## 1. The most likely ad
-The headline at the top, centered (12 of 25), over a picture of the product on its own (15 of 25), no people (23 of 25), set in all caps (11 of the 17 ads with a headline), with orange or brown in the palette (18 and 13 of 25).
+The headline at the top, centered (12 of 25), over a picture of the product on its own (15 of 25), no people (23 of 25), set in all caps (11 of the 17 ads with a headline), with orange or brown in the palette (15 and 14 of 25).
 
 ```
 ┌──────────────┐
@@ -21,7 +21,7 @@ The headline at the top, centered (12 of 25), over a picture of the product on i
 - Top structures: framed · top centered (6 of 25), full-bleed · top centered (6 of 25), framed · no words (5 of 25).
 - Chance: spread 25 ads over 14 structures at random and the fullest would hold about 4; here two structures hold 6 each, and the two together hold 12 where chance gives about 8.
 - Words: top centered in 12 of 25. The next position used more than twice is "no words at all" (8 of 25, mostly coffee bags and merch on white).
-- Color: orange in 18 ads, brown in 13, red in 9. Purple in none.
+- Color: orange in 15 ads, brown in 14, beige in 8, red in 7. Purple in none.
 - Type: display or condensed sans in 11 of the 17 ads with a headline; all caps in 11 of 17.
 - Other: 9:16 in 14 of 25; product isolated in 15; people in 2; promo sticker in 5.
 
@@ -45,7 +45,7 @@ Do: one person at half body or closer, the drink incidental in their hand; headl
 Watch: real customers or staff photograph better here than a styled model; avoid stock-looking smiles.
 
 **Direction 3 — Off-palette**
-Breaks: orange/brown palette (18 and 13 of 25) and all caps (11 of 17).
+Breaks: orange/brown palette (15 and 14 of 25) and all caps (11 of 17).
 Keeps: the structure everyone uses, so the ad is still easy to place.
 Do: one color the category doesn't use (green or purple, if the brand allows), a serif headline in sentence case, no promo sticker.
 Watch: this is the easiest direction to copy; it buys distinctiveness for one season, not for good.
